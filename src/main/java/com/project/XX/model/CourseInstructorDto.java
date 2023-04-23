@@ -1,0 +1,13 @@
+package com.project.XX.model;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@NoArgsConstructor
+@AllArgsConstructor
+@Data
+public class CourseInstructorDto {
+    private Long courseId;
+    private Long instructorId;
+}
