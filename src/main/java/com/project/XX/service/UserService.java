@@ -33,6 +33,16 @@ public class UserService implements IUserService {
             throw new UserNotFoundException("User not found with id : " + id);
         }
     }
+    
+    @Override
+    public User getUserByRole(Role role) {
+        Optional<User> user = userRepository.findByRole(role);
+        if (user.isPresent()) {
+            return user.get();
+        } else {
+            throw new UserNotFoundException("User not found with id : " + role);
+        }
+    }
 
     @Override
     public User addUser(User user) {

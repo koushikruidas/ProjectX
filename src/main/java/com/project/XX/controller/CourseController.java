@@ -89,7 +89,7 @@ public class CourseController {
         return ResponseEntity.ok(updatedCourseDto);
     }
     
-    @PostMapping("/courses/instructors")
+    @PostMapping("/instructors")
     public ResponseEntity<?> addInstructorToCourse(@RequestBody CourseInstructorDto courseInstructorDto) {
         try {
             courseService.addInstructorToCourse(courseInstructorDto);

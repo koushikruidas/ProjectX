@@ -14,4 +14,6 @@ import com.project.XX.util.Role;
 public interface UserRepository extends JpaRepository<User, Long> {
 	@Query("SELECT u FROM User u WHERE u.id = :id AND u.role = :role")
 	Optional<User> findByIdAndRole(@Param("id") Long id, @Param("role") Role role);
+	
+	Optional<User> findByRole(Role role);
 }

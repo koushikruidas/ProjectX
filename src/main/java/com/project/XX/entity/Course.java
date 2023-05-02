@@ -1,6 +1,7 @@
 package com.project.XX.entity;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -11,9 +12,13 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Builder.Default;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -27,12 +32,15 @@ public class Course {
 	private long id;
 	private String title;
 	private String description;
+	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinTable(
         name = "course_instructor",
         joinColumns = { @JoinColumn(name = "course_id") },
         inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
+	@Default
+	@EqualsAndHashCode.Exclude
     private Set<User> instructors = new HashSet<>();
 	
 	@ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
@@ -41,7 +49,12 @@ public class Course {
         joinColumns = { @JoinColumn(name = "course_id") },
         inverseJoinColumns = { @JoinColumn(name = "user_id") }
     )
+	@Default
+	@EqualsAndHashCode.Exclude
     private Set<User> students = new HashSet<>();
+	
+	@OneToMany(mappedBy = "course")
+    private List<Chapter> chapters;
 	
 	public void addInstructor(User instructor) {
         this.instructors.add(instructor);
@@ -62,6 +75,4 @@ public class Course {
         this.students.remove(student);
         student.getStudentCourses().remove(this);
     }
-
-
 }

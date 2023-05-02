@@ -12,9 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.project.XX.util.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 @Entity
@@ -34,24 +36,12 @@ public class User {
     private Role role;
 
     @ManyToMany(mappedBy = "instructors")
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Set<Course> instructorCourses = new HashSet<>();
 
     @ManyToMany(mappedBy = "students")
+    @EqualsAndHashCode.Exclude
+    @JsonIgnore
     private Set<Course> studentCourses = new HashSet<>();
-    
-    public Set<Course> getInstructorCourses() {
-        return instructorCourses;
-    }
-
-    public void setInstructorCourses(Set<Course> instructorCourses) {
-        this.instructorCourses = instructorCourses;
-    }
-
-    public Set<Course> getStudentCourses() {
-        return studentCourses;
-    }
-
-    public void setStudentCourses(Set<Course> studentCourses) {
-        this.studentCourses = studentCourses;
-    }
 }
